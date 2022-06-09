@@ -102,7 +102,14 @@ body{
     flex:45%;
     overflow-x:scroll;
     /* height: 45%; */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.stopwatchLaps::-webkit-scrollbar {
+    display: none;
+  }
 
 .stopwatchLapslist{
     list-style: none;

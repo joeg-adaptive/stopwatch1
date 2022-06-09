@@ -16,6 +16,7 @@ let convertedBackseconds = 0;
 let convertedBackmicroseconds= 0;
 let time;
 
+//timeCounter for using setInterval to 
 function timeCounter(){
     interval = setInterval(function(){
         microseconds ++
@@ -63,6 +64,8 @@ function resetLap(){
     } 
 }
 
+//Reset values is called by Reset Lap if the innerhtml says "Reset specifically"
+//This will reset minutes seconds and centiseconds to 0 deletes all laps in current app with a for loop
 function resetValues(){
     minutes = 0;
     seconds = 0;
@@ -77,6 +80,8 @@ function resetValues(){
     document.getElementById("timer").innerHTML = `${0}${minutes}:${0}${seconds}.${0}${microseconds}`
 }
 
+//this function is responsible for adding the html with the laps time and keeping track of the whichLap variable
+// It calls "lastValueCalc" to begin calculations got laps
 function lapTracker(minutes,seconds,microseconds){
     if(whichLap ==0){
         lastValueCalc(minutes,seconds,microseconds)
@@ -97,10 +102,11 @@ function lapTracker(minutes,seconds,microseconds){
     old.insertAdjacentElement('beforebegin',node)
     node.appendChild(document.createElement('hr'));
     whichLap++
-    
-    
     }
 }
+
+//Function to Save last value of time (in centiseconds) and subtract to newest time in centiseconds to get elapsed laptime
+//This function also converts and replaces the "old" time with the new time after conversion
 function lastValueCalc(minutes,seconds,microseconds){
     if(whichLap == 0){
         lastConvertedtime = conversion(minutes,seconds,microseconds)
@@ -116,12 +122,14 @@ function lastValueCalc(minutes,seconds,microseconds){
     console.log(time)
     return(time)
 }
+//Function to convert all values down to centiseconds
 function conversion(minutes,seconds,microseconds){
     let minutesToSeconds = minutes * 60;
     let secondsToMicroseconds = (seconds + minutesToSeconds) * 100;
     let convertedMicroseconds = secondsToMicroseconds + microseconds;
     return convertedMicroseconds
 }
+//Function to convert back to minutes and seconds and centiseconds
 function convertBack(convertedTime){
     convertedBackminutes = Math.floor(convertedTime / 6000)
         convertedTime -= convertedBackminutes * 6000;
@@ -129,13 +137,15 @@ function convertBack(convertedTime){
         convertedTime -= convertedBackseconds * 100;
     convertedBackmicroseconds = convertedTime;
 }
+//Function to Format Stopwatch time
 function Formatter(){
     let formattedMicroseconds = microseconds.toString().padStart(2,"0")
     let formattedSeconds = seconds.toString().padStart(2,"0")
-    let formattedMinutes =minutes.toString().padStart(2,"0")
+    let formattedMinutes = minutes.toString().padStart(2,"0")
 
 return(`${formattedMinutes}:${formattedSeconds}.${formattedMicroseconds}`)
 }
+//Function to Format Laps 
 function LapFormatter(){
     let formattedMicroseconds = convertedBackmicroseconds.toString().padStart(2,"0")
     let formattedSeconds = convertedBackseconds.toString().padStart(2,"0")
