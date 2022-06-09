@@ -2,6 +2,9 @@
     font-family: sans-serif-custom;
     src: url(./FontsFree-Net-SFProText-Light-1.ttf);
 }
+hr{
+    color:#8E8E93
+}
 body{
     display: flex;
     justify-content: center;
@@ -38,9 +41,6 @@ body{
     text-align: center;
 }
 
-.stopwatchLaps{
-    flex:45%;
-}
 .stopwatchButtons{
     flex: 10%;
     display: flex;
@@ -95,15 +95,23 @@ body{
     box-shadow: 0 0 0 2px black,
                 0 0 0 4px #FF3B30;
 }
+.stopwatchLaps{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 90%;
+    flex:45%;
+    overflow-x:scroll;
+    /* height: 45%; */
+}
+
 .stopwatchLapslist{
     list-style: none;
 }
+.stopwatchLapslist li{
+    text-align: end;
+}
 .blank{
     display: none;
-}
-h1{
-    
-
 }
 
 /* #FF3B30 */
