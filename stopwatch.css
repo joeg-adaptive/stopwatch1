@@ -2,16 +2,18 @@
     font-family: sans-serif-custom;
     src: url(./FontsFree-Net-SFProText-Light-1.ttf);
 }
+
 hr{
     color:#8E8E93
 }
+
 body{
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color:white
-
+    color:white;  
 }
 .stopwatchBody{
     display: flex;
@@ -23,19 +25,16 @@ body{
     background-color: black;
 }
 .stopwatchTime{
-    font-family: sans-serif;
-    font-weight: lighter;
-    font-size: 50px;
     flex: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .stopwatchTime span{
-    font-family: sans-serif;
+    font-family: sans-serif-custom;
     font-weight: lighter;
-    font-size: 50px;
-
+    font-size: 85px;
+    font-variant-numeric: tabular-nums;
 }
 .stopwatchTime h1{
     text-align: center;
@@ -62,10 +61,6 @@ body{
     box-shadow: 0 0 0 2px black,
                 0 0 0 4px #8E8E93;
 }
-.Lap{
-    display: none;
-}
-
 
 .start{
     font-family: sans-serif;
@@ -98,27 +93,41 @@ body{
 .stopwatchLaps{
     margin-top: 5%;
     margin-bottom: 5%;
-    width: 90%;
     flex:45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow-x:scroll;
     /* height: 45%; */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
 
+.stopwatchLaps-HR{
+    width: 90%;
+    padding: 0;
+    margin: 0;
+}
 /* Hide scrollbar for Chrome, Safari and Opera */
 .stopwatchLaps::-webkit-scrollbar {
     display: none;
-  }
-
-.stopwatchLapslist{
-    list-style: none;
-}
-.stopwatchLapslist li{
-    text-align: end;
-}
-.blank{
-    display: none;
 }
 
-/* #FF3B30 */
+.stopWatchLapsTable{
+    width: 90%;
+    line-height: 2;
+    border-collapse: collapse;
+}
+
+.lapsTableRow{
+    border-bottom: 1px solid #8E8E93;
+}
+
+.tdTime{
+    text-align: right;
+
+}
+
+.tdLap{
+    text-align: left;
+}

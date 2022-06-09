@@ -66,10 +66,10 @@ function resetValues(){
     seconds = 0;
     microseconds = 0;
     laps = []
-    let current_list = document.querySelectorAll("li")
+    let current_list = document.querySelectorAll("tr")
     console.log(current_list)
-    for (let i = 0; (li = current_list[i]); i++) {
-        li.parentNode.removeChild(li);
+    for (let i = 0; (tr = current_list[i]); i++) {
+        tr.parentNode.removeChild(tr);
     }
     whichLap = 0 
     document.getElementById("timer").innerHTML = `${0}${minutes}:${0}${seconds}.${0}${microseconds}`
@@ -78,26 +78,42 @@ function resetValues(){
 //this function is responsible for adding the html with the laps time and keeping track of the whichLap variable
 // It calls "lapCalc" to begin calculations got laps
 function lapTracker(){
+    //Setting tr Information
+    let tr = document.createElement('tr');
+    tr.setAttribute('class','lapsTableRow');
+    tr.setAttribute('id',whichLap);
+
+    //Setting tdLap Information
+    let tdLap = document.createElement('td');
+    tdLap.setAttribute('class','tdLap')
+    tdLap.innerHTML = (`Lap ${whichLap + 1}`)
+    
+    //Setting tdTime Information
+    let tdTime = document.createElement('td');
+    tdTime.setAttribute('class','tdTime')
+    tdTime.innerHTML = (lapCalc(rawCurrentTimeObj.centiseconds))
+
     if(whichLap == 0){
-        lapCalc(rawCurrentTimeObj.centiseconds)
-        var node = document.createElement('li');
-        node.setAttribute('id',whichLap)
-        document.querySelector('ul').appendChild(node);
-        node.appendChild(document.createTextNode(`Lap ${whichLap + 1}   `+ lapCalc(rawCurrentTimeObj.centiseconds)));
-        document.querySelector('ul').appendChild(node);
-        node.appendChild(document.createElement('hr'));
-        whichLap++
+        //Applying table row
+        document.querySelector('table').appendChild(tr);
+
     }else{
-    var node = document.createElement('li');
-    node.setAttribute('id',whichLap)
-    node.appendChild(document.createTextNode(`Lap ${whichLap + 1}    `+ lapCalc(rawCurrentTimeObj.centiseconds)));
-    old_id = whichLap - 1
-    let old = document.getElementById(old_id)
-    console.log(old_id)
-    old.insertAdjacentElement('beforebegin',node)
-    node.appendChild(document.createElement('hr'));
-    whichLap++
+    //Applying table row
+    document.getElementById(whichLap - 1).insertAdjacentElement('beforebegin',tr)
+
     }
+    //Applying tdLap Information
+    tr.appendChild(tdLap);
+
+     //Applying tdLap Information
+    tr.appendChild(tdTime);
+
+    //Applying hr for spacer
+
+    //tr.appendChild(document.createElement('hr'));
+
+     //Appending to whichLap to keep track of laps
+    whichLap++
 }
 
 //Function to Save last value of time (in centiseconds) and subtract to newest time in centiseconds to get elapsed laptime
