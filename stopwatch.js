@@ -1,15 +1,23 @@
-let displayTime = 0;
-let smallest = 0;
-let largest = 0;
+
 let time;
 let interval;
-let whichLap = 0;
+let fastest = 0;
+let fastestLap = 0;
+let slowest = 0;
+let slowestLap = 0;
 let lastLapTime = 0;
 let newLaptime = 0;
+let whichLap = 0;
+let displayTime = 0;
 let convertedPreviousTimeObj = { minutes:0, seconds:0, centiseconds:0 }
 let rawPreviousTimeObj = { centiseconds:0 }
 let convertedCurrentTimeObj = { minutes:0, seconds:0, centiseconds:0 }
 let rawCurrentTimeObj = { centiseconds:0 }
+let rawPausedTimeObj = { centiseconds:0 }
+//Feature List
+//Track fastest and slowest lap
+//Make latest lap realtime
+//Fix bug with time not starting where it left off when paused
 
 //Function to count the time
 function timeCounter(){
@@ -17,7 +25,7 @@ function timeCounter(){
     interval = setInterval(function(){
         let currentTime = Date.now();
         rawCurrentTimeObj.centiseconds = currentTime - startTime;
-        //console.log(rawCurrentTimeObj.centiseconds)
+        rawCurrentTimeObj.centiseconds += rawPausedTimeObj.centiseconds
         convertBack(rawCurrentTimeObj.centiseconds)
         document.getElementById("timer").innerHTML = Formatter(convertedCurrentTimeObj.minutes,convertedCurrentTimeObj.seconds,convertedCurrentTimeObj.centiseconds)
     },10)
@@ -25,6 +33,7 @@ function timeCounter(){
 
 //Handle Clearing interval
 function stopTimer(){
+    rawPausedTimeObj.centiseconds = rawCurrentTimeObj.centiseconds
     clearInterval(interval)
 }
 
@@ -62,17 +71,16 @@ function resetLap(){
 //Reset values is called by Reset Lap if the innerhtml says "Reset specifically"
 //This will reset minutes seconds and centiseconds to 0 deletes all laps in current app with a for loop
 function resetValues(){
-    minutes = 0;
-    seconds = 0;
-    microseconds = 0;
-    laps = []
+    rawCurrentTimeObj.centiseconds = 0;
+    rawPausedTimeObj.centiseconds = 0;
+    fastest = 0;
+    slowest = 0;
+    whichLap = 0 
     let current_list = document.querySelectorAll("tr")
-    console.log(current_list)
     for (let i = 0; (tr = current_list[i]); i++) {
         tr.parentNode.removeChild(tr);
     }
-    whichLap = 0 
-    document.getElementById("timer").innerHTML = `${0}${minutes}:${0}${seconds}.${0}${microseconds}`
+    document.getElementById("timer").innerHTML = '00:00.00'
 }
 
 //this function is responsible for adding the html with the laps time and keeping track of the whichLap variable
@@ -96,23 +104,21 @@ function lapTracker(){
     if(whichLap == 0){
         //Applying table row
         document.querySelector('table').appendChild(tr);
-
     }else{
     //Applying table row
     document.getElementById(whichLap - 1).insertAdjacentElement('beforebegin',tr)
-
     }
     //Applying tdLap Information
     tr.appendChild(tdLap);
 
      //Applying tdLap Information
     tr.appendChild(tdTime);
-
-    //Applying hr for spacer
-
-    //tr.appendChild(document.createElement('hr'));
-
-     //Appending to whichLap to keep track of laps
+    //Add to whichLap for tracking
+    if (whichLap == 2){
+        findSlowAndFast()
+    }else if(whichLap > 2){
+        findSlowAndFast()
+    }
     whichLap++
 }
 
@@ -127,10 +133,8 @@ function lapCalc(){
         displayTime = (newLaptime - lastLapTime)
         lastLapTime = newLaptime
     }
-    console.log(displayTime)
     convertedBackdisplayTime = convertBack(displayTime)
     time = LapFormatter(convertedCurrentTimeObj.minutes,convertedCurrentTimeObj.seconds,convertedCurrentTimeObj.centiseconds)
-    console.log(time)
     return(time)
 }
 
@@ -167,4 +171,63 @@ function LapFormatter(minutes,seconds,microseconds){
     let formattedMinutes = minutes.toString().padStart(2,"0")
 
 return(`${formattedMinutes}:${formattedSeconds}.${formattedMicroseconds}`)
+}
+
+function findSlowAndFast(){
+    if(whichLap == 2){
+        for(let i = 0; i <= whichLap; i++){
+            let Lap = document.getElementById(i)
+            let speedAsString = (Lap.querySelector('.tdTime')).innerHTML
+            let speed = parseFloat(speedAsString.replace(':','').replace('.',''))
+            if (fastest == 0){
+                fastest = speed
+                Lap.classList.add('lapsTableRowFastest')
+                fastestLap = Lap
+            }
+            if(fastest > speed){
+                fastest = speed
+                if(fastestLap != Lap){
+                    fastestLap.classList.remove('lapsTableRowFastest')
+                    Lap.classList.add('lapsTableRowFastest')
+                    fastestLap = Lap
+                }
+            }
+            if(slowest ==  0){
+                slowest = speed
+                Lap.classList.add('lapsTableRowSlowest')
+                slowestLap =  Lap
+                
+            }
+            if(speed > slowest){
+                slowest = speed
+                if(slowestLap != Lap){
+                    slowestLap.classList.remove('lapsTableRowSlowest')
+                    Lap.classList.add('lapsTableRowSlowest')
+                    slowestLap = Lap
+                }
+                
+            }
+        }  
+    }else{
+        let Lap = document.getElementById(whichLap)
+        let speedAsString = (Lap.querySelector('.tdTime')).innerHTML
+        let speed = parseFloat(speedAsString.replace(':','').replace('.',''))
+        if(fastest > speed){
+            fastest = speed
+            if(fastestLap != Lap){
+                fastestLap.classList.remove('lapsTableRowFastest')
+                Lap.classList.add('lapsTableRowFastest')
+                fastestLap = Lap
+            }
+        }
+        if(speed > slowest){
+            slowest = speed
+            if(slowestLap != Lap){
+                slowestLap.classList.remove('lapsTableRowSlowest')
+                Lap.classList.add('lapsTableRowSlowest')
+                slowestLap = Lap
+            }
+            
+        }
+    }
 }

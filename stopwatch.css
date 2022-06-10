@@ -14,6 +14,7 @@ body{
     align-items: center;
     height: 100vh;
     color:white;  
+    overflow: hidden;
 }
 .stopwatchBody{
     display: flex;
@@ -120,6 +121,16 @@ body{
 }
 
 .lapsTableRow{
+    border-bottom: 1px solid #8E8E93;
+}
+
+.lapsTableRowSlowest{
+    color: #FF3B30;
+    border-bottom: 1px solid #8E8E93;
+}
+
+.lapsTableRowFastest{
+    color: #30D158;
     border-bottom: 1px solid #8E8E93;
 }
 
