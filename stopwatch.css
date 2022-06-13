@@ -3,20 +3,20 @@
     src: url(./FontsFree-Net-SFProText-Light-1.ttf);
 }
 
-hr{
-    color:#8E8E93
+hr {
+    color: #8e8e93;
 }
 
-body{
+body {
     font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color:white;  
+    color: white;
     overflow: hidden;
 }
-.stopwatchBody{
+.stopwatchBody {
     display: flex;
     height: 766px;
     width: 390px;
@@ -25,86 +25,83 @@ body{
     flex-direction: column;
     background-color: black;
 }
-.stopwatchTime{
+.stopwatchTime {
     flex: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.stopwatchTime span{
+.stopwatchTime span {
     font-family: sans-serif-custom;
     font-weight: lighter;
     font-size: 85px;
     font-variant-numeric: tabular-nums;
 }
-.stopwatchTime h1{
+.stopwatchTime h1 {
     text-align: center;
 }
 
-.stopwatchButtons{
+.stopwatchButtons {
     flex: 10%;
     display: flex;
-    justify-content:center ;
+    justify-content: center;
     justify-content: space-between;
     align-items: center;
 }
-.reset{
+.reset {
     font-family: sans-serif;
     font-size: 16px;
     font-weight: lighter;
-    margin-left:5%;
+    margin-left: 5%;
     height: 80px;
     width: 80px;
     border-radius: 50%;
-    background-color: #8E8E93;
-    color:white;
+    background-color: #8e8e93;
+    color: white;
     border: none;
-    box-shadow: 0 0 0 2px black,
-                0 0 0 4px #8E8E93;
+    box-shadow: 0 0 0 2px black, 0 0 0 4px #8e8e93;
 }
 
-.start{
+.start {
     font-family: sans-serif;
     font-size: 16px;
     font-weight: lighter;
-    margin-right:5%;
+    margin-right: 5%;
     height: 80px;
     width: 80px;
     border-radius: 50%;
-    background-color:#145e26;
-    color:#30D158;
+    background-color: #145e26;
+    color: #30d158;
     border: none;
-    box-shadow: 0 0 0 2px black,
-                0 0 0 4px #145e26;
+    box-shadow: 0 0 0 2px black, 0 0 0 4px #145e26;
 }
-.stop{
+.stop {
     font-family: sans-serif;
     font-size: 16px;
     font-weight: lighter;
-    margin-right:5%;
+    margin-right: 5%;
     height: 80px;
     width: 80px;
     border-radius: 50%;
-    background-color:#FF3B30;
-    color:#ffffff;
+    background-color: #ff3b30;
+    color: #ffffff;
     border: none;
-    box-shadow: 0 0 0 2px black,
-                0 0 0 4px #FF3B30;
+    box-shadow: 0 0 0 2px black, 0 0 0 4px #ff3b30;
 }
-.stopwatchLaps{
+.stopwatchLaps {
     margin-top: 5%;
     margin-bottom: 5%;
-    flex:45%;
+    flex: 45%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-x:scroll;
+    overflow-x: scroll;
     /* height: 45%; */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
-.stopwatchLaps-HR{
+.stopwatchLaps-HR {
     width: 90%;
     padding: 0;
     margin: 0;
@@ -114,31 +111,30 @@ body{
     display: none;
 }
 
-.stopWatchLapsTable{
+.stopWatchLapsTable {
     width: 90%;
     line-height: 2;
     border-collapse: collapse;
 }
 
-.lapsTableRow{
-    border-bottom: 1px solid #8E8E93;
+.lapsTableRow {
+    border-bottom: 1px solid #8e8e93;
 }
 
-.lapsTableRowSlowest{
-    color: #FF3B30;
-    border-bottom: 1px solid #8E8E93;
+.lapsTableRowSlowest {
+    color: #ff3b30;
+    border-bottom: 1px solid #8e8e93;
 }
 
-.lapsTableRowFastest{
-    color: #30D158;
-    border-bottom: 1px solid #8E8E93;
+.lapsTableRowFastest {
+    color: #30d158;
+    border-bottom: 1px solid #8e8e93;
 }
 
-.tdTime{
+.tdTime {
     text-align: right;
-
 }
 
-.tdLap{
+.tdLap {
     text-align: left;
 }

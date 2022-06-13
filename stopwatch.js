@@ -11,7 +11,9 @@ let unformattedCurrentTime = { centiseconds: 0 };
 let unformattedPausedTime = { centiseconds: 0 };
 
 //Feature List
-//Make latest lap realtime
+//Lines for laps need to always be present
+//Fix font and styling
+//Make responsive
 
 //Function to count the time
 const timeCounter = () => {
