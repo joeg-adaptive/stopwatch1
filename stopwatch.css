@@ -4,7 +4,7 @@
 }
 
 hr {
-    color: #8e8e93;
+    color: #6f6f70;
 }
 
 body {
@@ -34,7 +34,7 @@ body {
 .stopwatchTime span {
     font-family: sans-serif-custom;
     font-weight: lighter;
-    font-size: 85px;
+    font-size: 80px;
     font-variant-numeric: tabular-nums;
 }
 .stopwatchTime h1 {
@@ -61,7 +61,9 @@ body {
     border: none;
     box-shadow: 0 0 0 2px black, 0 0 0 4px #8e8e93;
 }
-
+.invisible {
+    color: black;
+}
 .start {
     font-family: sans-serif;
     font-size: 16px;
@@ -118,17 +120,17 @@ body {
 }
 
 .lapsTableRow {
-    border-bottom: 1px solid #8e8e93;
+    border-bottom: 1px solid #6f6f70;
 }
 
 .lapsTableRowSlowest {
     color: #ff3b30;
-    border-bottom: 1px solid #8e8e93;
+    border-bottom: 1px solid #6f6f70;
 }
 
 .lapsTableRowFastest {
     color: #30d158;
-    border-bottom: 1px solid #8e8e93;
+    border-bottom: 1px solid #6f6f70;
 }
 
 .tdTime {

@@ -16,6 +16,7 @@ let unformattedPausedTime = { centiseconds: 0 };
 //Make responsive
 
 //Function to count the time
+
 const timeCounter = () => {
     let startTime = Date.now();
     interval = setInterval(() => {
@@ -82,6 +83,7 @@ const resetValues = () => {
     for (let i = 0; (tr = currentList[i]); i++) {
         tr.parentNode.removeChild(tr);
     }
+    createLapsPlaceHolder();
     document.getElementById("timer").innerText = "00:00.00";
 };
 
@@ -93,6 +95,47 @@ const initiateLiveTimeTable = () => {
     }
     liveTime = true;
 };
+
+const createLapsPlaceHolder = () => {
+    //Setting tr Information
+    console.log("start");
+    for (let i = 0; i <= 8; i++) {
+        //Setting tr Information
+        let tableRowLapData = document.createElement("tr");
+        tableRowLapData.setAttribute("class", "lapsTableRow");
+        tableRowLapData.setAttribute("data-id", i);
+
+        //Setting tdLap Information
+        let tdLap = document.createElement("td");
+        tdLap.setAttribute("class", "tdLap");
+        tdLap.setAttribute("class", "invisible");
+        tdLap.innerText = "1";
+
+        //Setting tdTime Information
+        let tdTime = document.createElement("td");
+        tdTime.setAttribute("class", "tdTime");
+        tdTime.setAttribute("class", "invisible");
+        tdTime.innerText = "1";
+
+        if (i == 0) {
+            //Applying table row
+            document.querySelector("table").appendChild(tableRowLapData);
+        } else {
+            //Applying table row
+            document
+                .querySelector("[data-id]")
+                .insertAdjacentElement("beforebegin", tableRowLapData);
+        }
+        //Applying tdLap Information
+        tableRowLapData.appendChild(tdLap);
+
+        //Applying tdLap Information
+        tableRowLapData.appendChild(tdTime);
+    }
+};
+//Calls to create Table rows
+createLapsPlaceHolder();
+
 const lapTracker = () => {
     //Setting tr Information
     let tableRowLapData = document.createElement("tr");
@@ -111,7 +154,9 @@ const lapTracker = () => {
 
     if (whichLap == 0) {
         //Applying table row
-        document.querySelector("table").appendChild(tableRowLapData);
+        document
+            .querySelector("table")
+            .insertAdjacentElement("afterbegin", tableRowLapData);
     } else {
         //Applying table row
         document
@@ -125,6 +170,9 @@ const lapTracker = () => {
     tableRowLapData.appendChild(tdTime);
 
     //Add to whichLap for tracking
+    if (document.querySelector("[data-id]")) {
+        document.querySelector("[data-id]").remove();
+    }
     if (whichLap == 2) {
         findSlowAndFast();
     } else if (whichLap > 2) {
