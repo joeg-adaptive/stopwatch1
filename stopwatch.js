@@ -248,7 +248,7 @@ const getFormattedLiveLapTime = () => {
     return `${formattedMinutes}:${formattedSeconds}.${formattedCentiseconds}`;
 };
 const findSlowAndFast = () => {
-    if (whichLap == 3) {
+    if (whichLap == 2) {
         for (let i = 0; i <= whichLap; i++) {
             let Lap = document.getElementById(i);
             let speedAsString = Lap.querySelector(".tdTime").innerText;
@@ -286,7 +286,7 @@ const findSlowAndFast = () => {
                 }
             }
         }
-    } else if (whichLap > 3) {
+    } else if (whichLap > 2) {
         let Lap = document.getElementById(whichLap - 1);
         let speedAsString = Lap.querySelector(".tdTime").innerText;
         let speed = parseFloat(speedAsString.replace(":", "").replace(".", ""));
