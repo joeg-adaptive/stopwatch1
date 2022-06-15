@@ -9,17 +9,37 @@ let liveLapTime = { minutes: 0, seconds: 0, centiseconds: 0 };
 let formattedLiveLapTime = { minutes: 0, seconds: 0, centiseconds: 0 };
 let unformattedCurrentTime = { centiseconds: 0 };
 let unformattedPausedTime = { centiseconds: 0 };
+let startTime;
 
 //Feature List
-//Lines for laps need to always be present
 //Fix font and styling
 //Make responsive
 
 //Function to count the time
 
+// const timeCounter = () => {
+//     //microtasks? https://javascript.info/microtask-queue
+//     let startTime = Date.now();
+//     interval = setInterval(() => {
+//         let currentTime = Date.now();
+//         unformattedCurrentTime.centiseconds = currentTime - startTime;
+//         unformattedCurrentTime.centiseconds +=
+//             unformattedPausedTime.centiseconds;
+//         formatTime(unformattedCurrentTime.centiseconds);
+//         getLiveLapTime(unformattedCurrentTime.centiseconds);
+//         document.getElementById("timer").innerText = getFormattedTime();
+//         document.querySelector(".tdTime").innerText = getFormattedLiveLapTime();
+//         console.log(currentTime);
+//     }, 10);
+// };
+const startTimeCounter = () => {
+    startTime = Date.now();
+    initiateLiveTimeTable();
+    timeCounter();
+};
+
 const timeCounter = () => {
-    let startTime = Date.now();
-    interval = setInterval(() => {
+    queueMicrotask(() => {
         let currentTime = Date.now();
         unformattedCurrentTime.centiseconds = currentTime - startTime;
         unformattedCurrentTime.centiseconds +=
@@ -28,20 +48,20 @@ const timeCounter = () => {
         getLiveLapTime(unformattedCurrentTime.centiseconds);
         document.getElementById("timer").innerText = getFormattedTime();
         document.querySelector(".tdTime").innerText = getFormattedLiveLapTime();
-    }, 10);
+    });
+    Promise.resolve().then(() => {
+        timeout = setTimeout(() => timeCounter(), 0);
+    });
 };
 
 //Handle Clearing interval
 const stopTimer = () => {
     unformattedPausedTime.centiseconds = unformattedCurrentTime.centiseconds;
-    clearInterval(interval);
+    clearTimeout(timeout);
 };
 
-//TD captialize Stop and start in css
 //Handle startStop Button Function
 const startStop = () => {
-    const start = "Start";
-    const stop = "Stop";
     startStopButton = document.getElementById("startStop");
     startStoptext = startStopButton.innerText;
     resetLapButton = document.getElementById("resetLap");
@@ -54,8 +74,7 @@ const startStop = () => {
         startStopButton.className = "stop";
         startStopButton.innerText = "Stop";
         resetLapButton.innerText = "Lap";
-        timeCounter();
-        initiateLiveTimeTable();
+        startTimeCounter();
     }
 };
 
@@ -98,7 +117,6 @@ const initiateLiveTimeTable = () => {
 
 const createLapsPlaceHolder = () => {
     //Setting tr Information
-    console.log("start");
     for (let i = 0; i <= 8; i++) {
         //Setting tr Information
         let tableRowLapData = document.createElement("tr");
