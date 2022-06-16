@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Stopwatch</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="stopwatch.css">
+        <link rel="stylesheet" href="stopwatch.css" />
     </head>
     <body>
         <main class="stopwatchBody">
@@ -14,22 +10,22 @@
                 <span id="timer">00:00.00</span>
             </div>
             <div class="stopwatchButtons">
-
-                <button class= "reset" id="resetLap" onclick="resetLap()">
+                <button class="reset" id="resetLap" onclick="resetLap()">
                     Reset
                 </button>
-                <button class= "start" id ="startStop" onclick="startStop()">
+                <button class="start" id="startStop" onclick="startStop()">
                     Start
                 </button>
-
             </div>
-            
+
             <div class="stopwatchLaps">
-                <hr class="stopwatchLaps-HR">
-                <table class="stopWatchLapsTable" id ="stopWatchLapsTable">
-                </table>
+                <hr class="stopwatchLaps-HR" />
+                <table
+                    class="stopWatchLapsTable"
+                    id="stopWatchLapsTable"
+                ></table>
             </div>
         </main>
-        <script src="stopwatch.js" async defer></script>
+        <script type="module" src="stopwatch.js"></script>
     </body>
 </html>

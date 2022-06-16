@@ -15,23 +15,6 @@ let startTime;
 //Fix font and styling
 //Make responsive
 
-//Function to count the time
-
-// const timeCounter = () => {
-//     //microtasks? https://javascript.info/microtask-queue
-//     let startTime = Date.now();
-//     interval = setInterval(() => {
-//         let currentTime = Date.now();
-//         unformattedCurrentTime.centiseconds = currentTime - startTime;
-//         unformattedCurrentTime.centiseconds +=
-//             unformattedPausedTime.centiseconds;
-//         formatTime(unformattedCurrentTime.centiseconds);
-//         getLiveLapTime(unformattedCurrentTime.centiseconds);
-//         document.getElementById("timer").innerText = getFormattedTime();
-//         document.querySelector(".tdTime").innerText = getFormattedLiveLapTime();
-//         console.log(currentTime);
-//     }, 10);
-// };
 const startTimeCounter = () => {
     startTime = Date.now();
     initiateLiveTimeTable();
@@ -53,7 +36,8 @@ const timeCounter = () => {
         timeout = setTimeout(() => timeCounter(), 0);
     });
 };
-
+//RequestAnimationFrame //
+//cencelAnimationFrame //
 //Handle Clearing interval
 const stopTimer = () => {
     unformattedPausedTime.centiseconds = unformattedCurrentTime.centiseconds;
