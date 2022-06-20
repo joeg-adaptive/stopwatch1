@@ -7,15 +7,13 @@
     <body>
         <main class="stopwatchBody">
             <div class="stopwatchTime">
-                <span id="timer">00:00.00</span>
+                <span id="stopWatchClock" data-id="stopWatchClock"
+                    >00:00.00</span
+                >
             </div>
             <div class="stopwatchButtons">
-                <button class="reset" id="resetLap" onclick="resetLap()">
-                    Reset
-                </button>
-                <button class="start" id="startStop" onclick="startStop()">
-                    Start
-                </button>
+                <button class="reset" data-id="resetLap">Reset</button>
+                <button class="start" data-id="startStop">Start</button>
             </div>
 
             <div class="stopwatchLaps">
@@ -26,6 +24,6 @@
                 ></table>
             </div>
         </main>
-        <script type="module" src="stopwatch.js"></script>
+        <script type="module" src="src/index.js"></script>
     </body>
 </html>
