@@ -62,10 +62,12 @@ export function createTables() {
         ? document.querySelector("[table-data-id]").remove()
         : null;
 
-    handleWhichLapWeAreOn("get") == 3
-        ? findSlowAndFast()
-        : handleWhichLapWeAreOn("get") > 3;
+    //console.log(handleWhichLapWeAreOn("get"));
+
+    //handleWhichLapWeAreOn("get") >= 2 ? findSlowAndFast() : null;
+    // handleWhichLapWeAreOn("get") > 3;
     //Maintence Functions
+
     findSlowAndFast();
     handleWhichLapWeAreOn("increment");
     createAndHandleLiveLapTime();

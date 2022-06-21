@@ -1,10 +1,13 @@
 import { getFormattedTime } from "./formatter.js";
 import { getCurrentTimeOnTimer } from "./timer.js";
-import { handleAccruedLapTimes, handleWhichLapWeAreOn } from "./utils.js";
+import {
+    handleAccruedLapTimes,
+    handleFastestLapElementAndTime,
+    handleSlowestLapElementAndTime,
+    handleWhichLapWeAreOn,
+} from "./utils.js";
 
 let lastLapTime = 0;
-let fastestLapElementAndTime = { fastestTime: 0, fastestLap: 0 };
-let slowestLapElementAndTime = { slowestTime: 0, slowestLap: 0 };
 
 export function lapTimeCalculator() {
     let previousLapTime = 0;
@@ -20,67 +23,41 @@ export function lapTimeCalculator() {
 }
 
 export function findSlowAndFast() {
-    if (handleWhichLapWeAreOn("get") == 3) {
-        for (let i = 0; i <= handleWhichLapWeAreOn("get"); i++) {
-            let Lap = document.getElementById(i);
-            let speedAsString = Lap.querySelector(".tdTime").innerText;
-            let speed = parseFloat(
-                speedAsString.replace(":", "").replace(".", "")
-            );
-            if (fastestLapElementAndTime.fastestTime == 0) {
-                fastestLapElementAndTime.fastestTime = speed;
-                Lap.classList.add("lapsTableRowFastest");
-                fastestLapElementAndTime.fastestLap = Lap;
-            }
-            if (fastestLapElementAndTime.fastestTime > speed) {
-                fastestLapElementAndTime.fastestTime = speed;
-                if (fastestLapElementAndTime.fastestLap != Lap) {
-                    fastestLapElementAndTime.fastestLap.classList.remove(
-                        "lapsTableRowFastest"
-                    );
-                    Lap.classList.add("lapsTableRowFastest");
-                    fastestLapElementAndTime.fastestLap = Lap;
-                }
-            }
-            if (slowestLapElementAndTime.slowestTime == 0) {
-                slowestLapElementAndTime.slowestTime = speed;
-                Lap.classList.add("lapsTableRowSlowest");
-                slowestLapElementAndTime.slowestLap = Lap;
-            }
-            if (speed > slowestLapElementAndTime.slowestTime) {
-                slowestLapElementAndTime.slowestTime = speed;
-                if (slowestLapElementAndTime.slowestLap != Lap) {
-                    slowestLapElementAndTime.slowestLap.classList.remove(
-                        "lapsTableRowSlowest"
-                    );
-                    Lap.classList.add("lapsTableRowSlowest");
-                    slowestLapElementAndTime.slowestLap = Lap;
-                }
-            }
-        }
-    } else if (handleWhichLapWeAreOn("get") > 3) {
-        let Lap = document.getElementById(handleWhichLapWeAreOn("get"));
-        let speedAsString = Lap.querySelector(".tdTime").innerText;
-        let speed = parseFloat(speedAsString.replace(":", "").replace(".", ""));
-        if (fastestLapElementAndTime.fastestTime > speed) {
-            fastestLapElementAndTime.fastestTime = speed;
-            if (fastestLapElementAndTime.fastestLap != Lap) {
-                fastestLapElementAndTime.fastestLap.classList.remove(
-                    "lapsTableRowFastest"
-                );
-                Lap.classList.add("lapsTableRowFastest");
-                fastestLapElementAndTime.fastestLap = Lap;
-            }
-        }
-        if (speed > slowestLapElementAndTime.slowestTime) {
-            slowestLapElementAndTime.slowestTime = speed;
-            if (slowestLapElementAndTime.slowestLap != Lap) {
-                slowestLapElementAndTime.slowestLap.classList.remove(
-                    "lapsTableRowSlowest"
-                );
-                Lap.classList.add("lapsTableRowSlowest");
-                slowestLapElementAndTime.slowestLap = Lap;
-            }
-        }
+    let $lap = document.getElementById(handleWhichLapWeAreOn("get"));
+    let speedAsString = $lap.querySelector(".tdTime").innerText;
+    let speed = parseFloat(speedAsString.replace(":", "").replace(".", ""));
+    if (
+        speed < handleFastestLapElementAndTime("getSpeed") ||
+        handleFastestLapElementAndTime("getSpeed") == null
+    ) {
+        handleFastestLapElementAndTime("getLap") !== null
+            ? handleFastestLapElementAndTime("getLap").classList.remove(
+                  "lapsTableRowFastest"
+              )
+            : null;
+        handleFastestLapElementAndTime("setSpeedAndLap", $lap, speed);
+    }
+    if (speed > handleSlowestLapElementAndTime("getSpeed")) {
+        handleSlowestLapElementAndTime("getLap") !== null
+            ? handleSlowestLapElementAndTime("getLap").classList.remove(
+                  "lapsTableRowSlowest"
+              )
+            : null;
+        handleSlowestLapElementAndTime("setSpeedAndLap", $lap, speed);
+    }
+
+    if (handleWhichLapWeAreOn("get") >= 2) {
+        styleSlowAndFast();
+    }
+}
+
+function styleSlowAndFast() {
+    if (handleWhichLapWeAreOn("get") >= 2) {
+        handleSlowestLapElementAndTime("getLap").classList.add(
+            "lapsTableRowSlowest"
+        );
+        handleFastestLapElementAndTime("getLap").classList.add(
+            "lapsTableRowFastest"
+        );
     }
 }

@@ -8,6 +8,8 @@ import {
     handleWhichLapWeAreOn,
     handleLiveLap,
     handleAccruedLapTimes,
+    handleFastestLapElementAndTime,
+    handleSlowestLapElementAndTime,
 } from "./utils.js";
 
 let $stopWatchClock = document.querySelector("[data-id=stopWatchClock]");
@@ -50,6 +52,9 @@ export function resetValues() {
     liveTime = false;
     handleLiveLap("setStatusLiveLapInitializatedToFalse");
     handleWhichLapWeAreOn("reset");
+    handleAccruedLapTimes("reset");
+    handleFastestLapElementAndTime("reset");
+    handleSlowestLapElementAndTime("reset");
     document.querySelectorAll("tr").forEach((element) => {
         element.parentNode.removeChild(element);
     });
