@@ -1,10 +1,14 @@
 import { getFormattedTime } from "./formatter.js";
 import { isTimerRunning, handlePlaceHolderTable } from "./index.js";
 import {
-    //createAndHandleLiveLapTime,
+    createAndHandleLiveLapTime,
     $tableRowWithLiveLapTime,
 } from "./tableManager.js";
-import { handleWhichLapWeAreOn } from "./utils.js";
+import {
+    handleWhichLapWeAreOn,
+    handleLiveLap,
+    handleAccruedLapTimes,
+} from "./utils.js";
 
 let $stopWatchClock = document.querySelector("[data-id=stopWatchClock]");
 let startTime = 0;
@@ -13,9 +17,9 @@ let liveTime = false;
 
 export function continouslyRunningTimer($stopWatchClock) {
     $stopWatchClock.innerText = getFormattedTime(Date.now() - startTime);
-    // $tableRowWithLiveLapTime.innerText = getFormattedTime(
-    //     Date.now() - startTime
-    // );
+    $tableRowWithLiveLapTime.innerText = getFormattedTime(
+        Date.now() - startTime - handleAccruedLapTimes("get")
+    );
     theTimer = requestAnimationFrame(() =>
         continouslyRunningTimer($stopWatchClock)
     );
@@ -24,7 +28,7 @@ export function continouslyRunningTimer($stopWatchClock) {
 export function startTimer() {
     if (isTimerRunning()) {
         startTime += Date.now();
-        initiateLiveTimeTable();
+        createAndHandleLiveLapTime();
         continouslyRunningTimer($stopWatchClock);
     }
 }
@@ -44,16 +48,10 @@ export function resetValues() {
     startTime = 0;
     $stopWatchClock.innerText = "00:00.00";
     liveTime = false;
+    handleLiveLap("setStatusLiveLapInitializatedToFalse");
     handleWhichLapWeAreOn("reset");
     document.querySelectorAll("tr").forEach((element) => {
         element.parentNode.removeChild(element);
     });
     handlePlaceHolderTable();
 }
-
-const initiateLiveTimeTable = () => {
-    if (liveTime === false) {
-        //createAndHandleLiveLapTime();
-    }
-    liveTime = true;
-};

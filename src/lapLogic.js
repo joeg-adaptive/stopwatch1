@@ -1,6 +1,6 @@
 import { getFormattedTime } from "./formatter.js";
 import { getCurrentTimeOnTimer } from "./timer.js";
-import { handleWhichLapWeAreOn } from "./utils.js";
+import { handleAccruedLapTimes, handleWhichLapWeAreOn } from "./utils.js";
 
 let lastLapTime = 0;
 let fastestLapElementAndTime = { fastestTime: 0, fastestLap: 0 };
@@ -15,6 +15,7 @@ export function lapTimeCalculator() {
         previousLapTime = getCurrentTimeOnTimer() - lastLapTime;
         lastLapTime = getCurrentTimeOnTimer();
     }
+    handleAccruedLapTimes("add", previousLapTime);
     return getFormattedTime(previousLapTime);
 }
 
@@ -58,7 +59,6 @@ export function findSlowAndFast() {
             }
         }
     } else if (handleWhichLapWeAreOn("get") > 3) {
-        console.log(`what lap? ${handleWhichLapWeAreOn("get")}`);
         let Lap = document.getElementById(handleWhichLapWeAreOn("get"));
         let speedAsString = Lap.querySelector(".tdTime").innerText;
         let speed = parseFloat(speedAsString.replace(":", "").replace(".", ""));
