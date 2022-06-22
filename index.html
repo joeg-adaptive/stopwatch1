@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Stopwatch</title>
-        <link rel="stylesheet" href="stopwatch.css" />
-    </head>
-    <body>
-        <main class="stopwatchBody">
-            <div class="stopwatchTime">
-                <span id="stopWatchClock" data-id="stopWatchClock"
-                    >00:00.00</span
-                >
-            </div>
-            <div class="stopwatchButtons">
-                <button class="reset" data-id="resetLap">Reset</button>
-                <button class="start" data-id="startStop">Start</button>
-            </div>
+	<head>
+		<title>Stopwatch</title>
+		<link rel="stylesheet" href="stopwatch.css" />
+	</head>
+	<body>
+		<main class="stopwatchBody">
+			<div class="stopwatchTime">
+				<span id="stopWatchClock" data-id="stopWatchClock">00:00.00</span>
+			</div>
+			<div class="stopwatchButtons">
+				<button class="reset" data-id="resetLap">Reset</button>
+				<button class="start" data-id="startStop">Start</button>
+			</div>
 
-            <div class="stopwatchLaps">
-                <hr class="stopwatchLaps-HR" />
-                <table
-                    class="stopWatchLapsTable"
-                    id="stopWatchLapsTable"
-                ></table>
-            </div>
-        </main>
-        <script type="module" src="src/index.js"></script>
-    </body>
+			<div class="stopWatchLaps" data-id="stopWatchLaps"></div>
+		</main>
+		<script type="module" src="src/index.js"></script>
+	</body>
 </html>
